@@ -53,10 +53,10 @@ resource "aws_ec2_client_vpn_network_association" "ec2_client_vpn_network_associ
   count                  = length(aws_subnet.private_subnets)
   client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.ec2_client_vpn_endpoint.id
   subnet_id              = aws_subnet.private_subnets[count.index].id
-  security_groups = [
-    aws_security_group.mwaa.id,
-    aws_security_group.client_vpn.id
-  ]
+#  security_groups = [
+#    aws_security_group.mwaa.id,
+#    aws_security_group.client_vpn.id
+#  ]
 }
 
 resource "aws_ec2_client_vpn_authorization_rule" "ec2_client_vpn_authorization_rule" {

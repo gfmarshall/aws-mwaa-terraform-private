@@ -1,23 +1,21 @@
-# S3
+# MWAA S3
 
 resource "aws_s3_bucket" "s3_bucket" {
   bucket = var.prefix
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
-  }
-
-  versioning {
-    enabled = true
-  }
-
   tags = merge(local.tags, {
     Name = var.prefix
   })
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "s3_bucket" {
+  bucket = aws_s3_bucket.s3_bucket.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "s3_bucket_public_access_block" {
@@ -28,7 +26,7 @@ resource "aws_s3_bucket_public_access_block" "s3_bucket_public_access_block" {
   restrict_public_buckets = true
 }
 
-resource "aws_s3_bucket_object" "dags" {
+resource "aws_s3_object" "dags" {
   for_each = fileset("dags/", "*.py")
   bucket   = aws_s3_bucket.s3_bucket.id
   key      = "dags/${each.value}"

@@ -13,8 +13,8 @@ Below is an example `terraform.tfvars` file that you can use in your deployments
 ```ini
 # terraform.tfvars
 
-region   = "us-east-1"
-prefix   = "my-mwaa"
+region   = "ap-southeast-2"
+prefix   = "ereefs-mwaa"
 vpc_cidr = "10.44.22.0/24"
 public_subnet_cidrs = [
   "10.44.22.0/28",

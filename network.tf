@@ -47,8 +47,8 @@ resource "aws_internet_gateway" "internet_gateway" {
 }
 
 resource "aws_eip" "nat_gateway_elastic_ips" {
-  count = length(var.public_subnet_cidrs)
-  vpc   = true
+  count  = length(var.public_subnet_cidrs)
+  domain = "vpc"
 
   tags = merge(local.tags, {
     Name = format("${var.prefix}-eip%02d", count.index + 1)

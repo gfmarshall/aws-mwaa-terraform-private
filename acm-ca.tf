@@ -5,7 +5,7 @@ resource "tls_private_key" "ca" {
 }
 
 resource "tls_self_signed_cert" "ca" {
-  key_algorithm   = "RSA"
+#  key_algorithm   = "RSA"
   private_key_pem = tls_private_key.ca.private_key_pem
 
   subject {
